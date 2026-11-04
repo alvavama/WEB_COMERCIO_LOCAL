@@ -1,0 +1,376 @@
+/* =========================================================
+   FRUTOS PACO · Hoja de estilos propia
+   Todo lo que Tailwind no resuelve bien: tipografía propia,
+   modo oscuro por variables, adornos, componentes y animaciones.
+   ========================================================= */
+
+/* 1. Mismo orden de capas que Tailwind (siempre la primera línea) */
+@layer theme, base, components, utilities;
+
+
+/* ---------- Tipografía propia (fuera de capas: no compite) ---------- */
+@font-face {
+  font-family: "Djore";
+  src: url("../fonts/djore-demo.woff2") format("woff2"),
+       url("../fonts/djore-demo.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* =========================================================
+   @layer base · estilos de etiquetas y modo oscuro
+   ========================================================= */
+@layer base {
+  /* Modo oscuro: se redefinen los colores del @theme.
+     Todas las clases que los usan (bg-fondo, text-tinta...) cambian solas. */
+  .dark {
+    --color-fondo: #161616;
+    --color-tinta: #f7f7f7;
+    --color-gris: #9a9a9a;
+    --shadow-tarjeta: 0 18px 30px -14px rgb(0 0 0 / 0.9);
+    color-scheme: dark;
+  }
+
+  ::selection {
+    background-color: var(--color-tinta);
+    color: var(--color-fondo);
+  }
+
+  /* Foco visible y coherente en toda la web (teclado) */
+  :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 3px;
+  }
+
+  img {
+    user-select: none;
+  }
+}
+
+
+/* =========================================================
+   @layer components · clases propias
+   ========================================================= */
+@layer components {
+
+  /* ---------- Logo a todo el ancho ----------
+     El tamaño depende del ancho del contenedor (@container),
+     así "FRUTOS PACO" ocupa siempre la línea completa. */
+  /* En el diseño la Djore está estirada en vertical (≈130 %) */
+  .logo,
+  .logo-pie {
+    font-size: calc(100cqw / 8.57);
+    white-space: nowrap;
+    display: flex;
+    justify-content: space-between;
+    transform: scaleY(1.3);
+    transform-origin: top;
+    margin-bottom: 0.3em;
+  }
+
+  /* Letra a letra se pierde el kerning y la palabra ocupa más:
+     se compensa con un tamaño algo menor */
+  .logo {
+    font-size: calc(100cqw / 9.36);
+  }
+
+  /* La versión DEMO de la Djore no trae dibujadas las letras con tilde:
+     la tilde se dibuja con CSS encima de la letra base */
+  .acento {
+    position: relative;
+  }
+
+  .acento::after {
+    content: "";
+    position: absolute;
+    left: 52%;
+    top: 0.32em; /* la caja de esta fuente es muy alta: se baja hasta la letra */
+    width: 0.075em;
+    height: 0.17em;
+    background-color: currentColor;
+    transform: rotate(42deg);
+  }
+
+  /* Cada palabra hace de máscara para que las letras "suban" (animación A) */
+  .palabra {
+    display: inline-flex;
+    /* Solo recorta por abajo: las letras aparecen desde la base */
+    clip-path: inset(-1em -0.5em -0.12em -0.5em);
+  }
+
+  .letra {
+    display: inline-block;
+    animation: subir 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 55ms + 150ms);
+  }
+
+  /* ---------- Texto justificado de lado a lado (como en el diseño) ---------- */
+  .justificado {
+    text-align: justify;
+    text-align-last: justify;
+    hyphens: none;
+  }
+
+  /* ---------- Menú hamburguesa → X (animación D) ---------- */
+  .hamburguesa-lineas {
+    --separacion: 6px;
+    position: relative;
+    display: block;
+    width: 45%;
+    height: 2px;
+  }
+
+  @media (width >= 64rem) {
+    .hamburguesa-lineas { --separacion: 10px; height: 3px; }
+  }
+
+  .hamburguesa-lineas span {
+    position: absolute;
+    inset: 0;
+    background-color: currentColor;
+    transition: transform 0.35s cubic-bezier(0.65, 0, 0.35, 1), opacity 0.2s;
+  }
+
+  .hamburguesa-lineas span:nth-child(1) { transform: translateY(calc(var(--separacion) * -1)); }
+  .hamburguesa-lineas span:nth-child(3) { transform: translateY(var(--separacion)); }
+
+  .hamburguesa[aria-expanded="true"] .hamburguesa-lineas span:nth-child(1) {
+    transform: rotate(45deg);
+  }
+  .hamburguesa[aria-expanded="true"] .hamburguesa-lineas span:nth-child(2) {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  .hamburguesa[aria-expanded="true"] .hamburguesa-lineas span:nth-child(3) {
+    transform: rotate(-45deg);
+  }
+
+  /* El panel aparece desde abajo y los enlaces entran uno detrás de otro */
+  .menu:not(.hidden) {
+    animation: desplegar 0.35s cubic-bezier(0.22, 1, 0.36, 1) both;
+    transform-origin: bottom right;
+  }
+
+  .menu:not(.hidden) li {
+    animation: entrar 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 60ms + 80ms);
+  }
+
+  /* ---------- Enlaces con flecha (menú y footer) ----------
+     La línea inferior se dibuja de izquierda a derecha y la flecha ↗ gira a → */
+  .enlace-flecha {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-block: 0.7rem;
+    border-bottom: 1px solid color-mix(in srgb, currentColor 30%, transparent);
+  }
+
+  .enlace-flecha::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+    width: 100%;
+    height: 1px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .enlace-flecha:hover::after,
+  .enlace-flecha:focus-visible::after {
+    transform: scaleX(1);
+  }
+
+  .flecha {
+    flex: none;
+    width: 1.1em;
+    height: 1.1em;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .enlace-flecha:hover .flecha,
+  .enlace-flecha:focus-visible .flecha {
+    transform: rotate(45deg);
+  }
+
+  .icono-tema {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+  }
+
+  /* Enlace de texto con subrayado que se dibuja (dirección) */
+  .enlace-subrayado {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px;
+    background-position: left bottom;
+    background-repeat: no-repeat;
+    transition: background-size 0.5s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .enlace-subrayado:hover,
+  .enlace-subrayado:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* ---------- Tarjeta de producto ----------
+     Al pasar el ratón se eleva un poco, aparece la sombra
+     y la fruta se balancea (animación C) */
+  .tarjeta {
+    display: block;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tarjeta:hover,
+  .tarjeta:focus-visible {
+    transform: translateY(-4px);
+  }
+
+  .tarjeta-foto {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    background-color: var(--color-tarjeta);
+    transition: box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .tarjeta:hover .tarjeta-foto,
+  .tarjeta:focus-visible .tarjeta-foto {
+    box-shadow: var(--shadow-tarjeta);
+  }
+
+  .tarjeta-numero {
+    position: absolute;
+    z-index: 1;
+    top: 0.75rem;
+    left: 0.85rem;
+    font-size: 0.875rem;
+    color: #161616; /* siempre oscuro: va sobre la foto clara */
+  }
+
+  .producto {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: 50% 92%;
+  }
+
+  .tarjeta:hover .producto,
+  .tarjeta:focus-visible .producto {
+    animation: balanceo 1.8s ease-in-out infinite;
+  }
+
+  .tarjeta-nombre {
+    margin-top: 1.1rem;
+    text-align: center;
+    font-size: 0.875rem;
+    line-height: 1.2;
+    color: var(--color-gris);
+    transition: color 0.3s;
+  }
+
+  .tarjeta:hover .tarjeta-nombre,
+  .tarjeta:focus-visible .tarjeta-nombre {
+    color: var(--color-tinta);
+  }
+
+  .tarjeta-precio {
+    margin-top: 0.6rem;
+    text-align: center;
+    font-size: 0.875rem;
+  }
+
+  @media (width >= 64rem) {
+    .tarjeta-numero { top: 1.1rem; left: 1.2rem; font-size: 1.125rem; }
+    .tarjeta-nombre { margin-top: 1.5rem; font-size: 1.25rem; }
+    .tarjeta-precio { margin-top: 0.9rem; font-size: 1.125rem; }
+  }
+
+  /* ---------- Línea de puntos "en marcha" (animación F) ---------- */
+  .linea-puntos {
+    --paso: 6px;
+    height: 1px;
+    background-image: linear-gradient(90deg, currentColor 50%, transparent 50%);
+    background-size: var(--paso) 100%;
+    animation: desfile 0.6s linear infinite;
+  }
+
+  .linea-gruesa {
+    --paso: 10px;
+    height: 3px;
+    animation-duration: 0.9s;
+  }
+}
+
+
+/* =========================================================
+   Librerías: su CSS no está en ninguna capa,
+   así que para retocarlo también vamos fuera de capas.
+   ========================================================= */
+:root {
+  --swiper-theme-color: var(--color-tinta);
+}
+
+.novedades-progreso.swiper-pagination-progressbar {
+  position: relative;
+  width: 100%;
+  height: 1px;
+  background: color-mix(in srgb, var(--color-tinta) 25%, transparent);
+}
+
+
+/* =========================================================
+   @keyframes (fuera de capas: no compiten con nada)
+   ========================================================= */
+
+/* A · Las letras del logo suben desde la máscara */
+@keyframes subir {
+  from { transform: translateY(125%); }
+  to   { transform: translateY(0); }
+}
+
+/* C · La fruta se balancea sobre su peana */
+@keyframes balanceo {
+  0%, 100% { transform: scale(1.03) rotate(0deg); }
+  25%      { transform: scale(1.03) rotate(-1.2deg); }
+  75%      { transform: scale(1.03) rotate(1.2deg); }
+}
+
+/* D · Panel del menú y enlaces en cascada */
+@keyframes desplegar {
+  from { opacity: 0; transform: translateY(12px) scale(0.97); }
+  to   { opacity: 1; transform: none; }
+}
+
+@keyframes entrar {
+  from { opacity: 0; transform: translateX(14px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* F · Los puntos de la línea avanzan */
+@keyframes desfile {
+  from { background-position: 0 0; }
+  to   { background-position: var(--paso) 0; }
+}
+
+
+/* Respeta a quien pide menos movimiento */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
