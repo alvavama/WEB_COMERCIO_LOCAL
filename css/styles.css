@@ -76,6 +76,13 @@
     font-size: calc(100cqw / 9.36);
   }
 
+  /* El estirado vertical de la cabecera lo ajusta interfaz.js (entre 1 y 1.3)
+     para que ocupe la misma proporción de pantalla que en el Figma */
+  .logo {
+    transform: scaleY(var(--estirado, 1.3));
+    margin-bottom: calc(0.83em * (var(--estirado, 1.3) - 1) + 0.05em);
+  }
+
   /* La versión DEMO de la Djore no trae dibujadas las letras con tilde:
      la tilde se dibuja con CSS encima de la letra base */
   .acento {
