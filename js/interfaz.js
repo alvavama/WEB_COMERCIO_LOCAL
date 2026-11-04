@@ -79,3 +79,17 @@ botonTema.addEventListener('click', function () {
 
 // Al cargar: el <head> ya ha puesto la clase .dark si tocaba
 actualizarBotonTema();
+
+
+/* ---------- 3. CABECERA FIJA ----------
+   La cabecera se queda arriba (sticky). Guardamos su altura en una variable CSS
+   para que los enlaces internos (#temporada, #quienes...) no queden tapados. */
+const cabecera = document.querySelector('#cabecera');
+
+function medirCabecera() {
+  raiz.style.setProperty('--alto-cabecera', cabecera.offsetHeight + 'px');
+}
+
+medirCabecera();
+window.addEventListener('resize', medirCabecera);
+document.fonts.ready.then(medirCabecera);
