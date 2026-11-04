@@ -11,14 +11,17 @@ if (document.querySelector('.novedades')) {
   new Swiper('.novedades', {
     effect: 'fade',
     fadeEffect: { crossFade: true },
-    speed: 800,
-    rewind: true,
+    // Con "menos movimiento" el fundido es más corto
+    speed: menosMovimiento ? 300 : 800,
+    loop: true,            // de la última novedad vuelve a la primera, sin fin
     grabCursor: true,
     keyboard: { enabled: true },
-    autoplay: menosMovimiento ? false : {
-      delay: 5000,
-      disableOnInteraction: false,
-      pauseOnMouseEnter: true
+    // Cambia cada 4 segundos en móvil, iPad y desktop.
+    // Sin pauseOnMouseEnter: el slider ocupa casi toda la pantalla
+    // y con el ratón encima se quedaba parado.
+    autoplay: {
+      delay: 4000,
+      disableOnInteraction: false   // si se desliza a mano, sigue solo después
     },
     pagination: {
       el: '.novedades-progreso',
