@@ -9,7 +9,6 @@
       content="Frutos Paco, frutería de barrio en Madrid desde 2005. Fruta y verdura de temporada de origen nacional."
     />
 
-    <!-- 0. Recordar el modo oscuro antes de pintar la página (evita el parpadeo) -->
     <script>
       try {
         const tema = localStorage.getItem("tema");
@@ -22,7 +21,6 @@
       } catch (e) {}
     </script>
 
-    <!-- 1. CSS de las librerías (Swiper y AOS) -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.css"
@@ -31,29 +29,21 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
     />
-
-    <!-- 2. Tu CSS propio (incluye la tipografía Djore con @font-face) -->
     <link rel="stylesheet" href="css/styles.css" />
-
-    <!-- 3. Tailwind desde el CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- 4. Sistema de diseño -->
     <style type="text/tailwindcss">
       @custom-variant dark (&:where(.dark, .dark *));
 
       @theme static {
-        /* Colores por función: en modo oscuro se redefinen en styles.css */
         --color-fondo: #f7f7f7;
         --color-tinta: #161616;
         --color-gris: #6e6e6e;
         --color-tarjeta: #ede3e2;
 
-        /* Tipografías */
         --font-titulo: "Djore", "Times New Roman", serif;
         --font-texto: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-        /* Sombra de las tarjetas al pasar el ratón */
         --shadow-tarjeta: 0 18px 30px -14px rgb(22 22 22 / 0.45);
       }
     </style>
@@ -68,7 +58,6 @@
       >Saltar al contenido</a
     >
 
-    <!-- ============ CABECERA + NAVEGACIÓN ============ -->
     <header
       id="cabecera"
       class="sticky top-0 z-40 bg-fondo px-5 pb-4 pt-12 transition-colors duration-300 lg:px-7 lg:pb-4 lg:pt-10"
@@ -101,7 +90,6 @@
         <p>Desde 2005</p>
       </div>
 
-      <!-- Menú: botón flotante abajo a la derecha que despliega el panel -->
       <nav
         class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2 lg:bottom-7 lg:right-7"
         aria-label="Principal"
@@ -164,7 +152,7 @@
                   ><span class="mr-2 text-fondo/50 lg:mr-3">005</span
                   ><span id="texto-tema">Modo oscuro</span></span
                 >
-                <!-- Luna (modo claro) / Sol (modo oscuro) -->
+
                 <svg
                   class="icono-tema size-4 dark:hidden lg:size-5"
                   viewBox="0 0 24 24"
@@ -203,7 +191,6 @@
     </header>
 
     <main id="contenido">
-      <!-- ============ PORTADA: NOVEDADES (Swiper) ============ -->
       <section
         id="novedades"
         class="px-5 pt-4 lg:px-7 lg:pt-2"
@@ -284,11 +271,10 @@
             </article>
           </div>
         </div>
-        <!-- Barra de progreso del slider: hace de línea separadora -->
+
         <div class="novedades-progreso mt-6 lg:mt-7"></div>
       </section>
 
-      <!-- ============ PRODUCTOS DE TEMPORADA ============ -->
       <section
         id="temporada"
         class="scroll-mt-[calc(var(--alto-cabecera,0px)+2rem)] px-5 pt-20 lg:px-7 lg:pt-36"
@@ -448,7 +434,6 @@
         </ul>
       </section>
 
-      <!-- ============ QUIÉNES SOMOS ============ -->
       <section
         id="quienes"
         class="scroll-mt-[calc(var(--alto-cabecera,0px)+2rem)] px-5 pt-24 lg:grid lg:grid-cols-[956fr_1420fr_493fr] lg:items-stretch lg:gap-7 lg:px-7 lg:pt-40"
@@ -510,7 +495,6 @@
         />
       </section>
 
-      <!-- ============ HORARIO Y UBICACIÓN ============ -->
       <section
         id="horario"
         class="scroll-mt-[calc(var(--alto-cabecera,0px)+2rem)] px-5 pb-10 pt-24 lg:px-7 lg:pb-16 lg:pt-40"
@@ -549,7 +533,6 @@
       </section>
     </main>
 
-    <!-- ============ FOOTER ============ -->
     <footer id="contacto">
       <div
         class="linea-puntos linea-gruesa text-tinta"

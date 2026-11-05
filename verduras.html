@@ -9,7 +9,6 @@
       content="Verduras de temporada de Frutos Paco, frutería de barrio en Madrid: producto nacional de la más alta calidad."
     />
 
-    <!-- 0. Recordar el modo oscuro antes de pintar la página (evita el parpadeo) -->
     <script>
       try {
         const tema = localStorage.getItem("tema");
@@ -22,34 +21,27 @@
       } catch (e) {}
     </script>
 
-    <!-- 1. CSS de las librerías (AOS) -->
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"
     />
 
-    <!-- 2. Tu CSS propio (incluye la tipografía Djore con @font-face) -->
     <link rel="stylesheet" href="css/styles.css" />
 
-    <!-- 3. Tailwind desde el CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- 4. Sistema de diseño -->
     <style type="text/tailwindcss">
       @custom-variant dark (&:where(.dark, .dark *));
 
       @theme static {
-        /* Colores por función: en modo oscuro se redefinen en styles.css */
         --color-fondo: #f7f7f7;
         --color-tinta: #161616;
         --color-gris: #6e6e6e;
         --color-tarjeta: #ede3e2;
 
-        /* Tipografías */
         --font-titulo: "Djore", "Times New Roman", serif;
         --font-texto: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-        /* Sombra de las tarjetas al pasar el ratón */
         --shadow-tarjeta: 0 18px 30px -14px rgb(22 22 22 / 0.45);
       }
     </style>
@@ -64,7 +56,6 @@
       >Saltar al contenido</a
     >
 
-    <!-- ============ CABECERA + NAVEGACIÓN ============ -->
     <header
       id="cabecera"
       class="sticky top-0 z-40 bg-fondo px-5 pb-4 pt-12 transition-colors duration-300 lg:px-7 lg:pb-4 lg:pt-10"
@@ -98,7 +89,6 @@
         <p>Desde 2005</p>
       </div>
 
-      <!-- Menú: botón flotante abajo a la derecha que despliega el panel -->
       <nav
         class="fixed bottom-5 right-5 z-50 flex flex-col items-end gap-2 lg:bottom-7 lg:right-7"
         aria-label="Principal"
@@ -110,24 +100,42 @@
           <ul class="text-sm lg:text-lg">
             <li style="--i: 0">
               <a href="index.html" class="enlace-flecha group">
-                <span><span class="mr-2 text-fondo/50 lg:mr-3">001</span>Home</span>
-                <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                <span
+                  ><span class="mr-2 text-fondo/50 lg:mr-3">001</span>Home</span
+                >
+                <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
               </a>
             </li>
             <li style="--i: 1">
               <a href="index.html#temporada" class="enlace-flecha group">
-                <span><span class="mr-2 text-fondo/50 lg:mr-3">002</span>De temporada</span>
-                <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                <span
+                  ><span class="mr-2 text-fondo/50 lg:mr-3">002</span>De
+                  temporada</span
+                >
+                <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
               </a>
             </li>
             <li style="--i: 2">
               <a href="frutas.html" class="enlace-flecha group">
-                <span><span class="mr-2 text-fondo/50 lg:mr-3">003</span>Frutas</span>
-                <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9" /></svg>
+                <span
+                  ><span class="mr-2 text-fondo/50 lg:mr-3">003</span
+                  >Frutas</span
+                >
+                <svg class="flecha" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M7 17 17 7M8 7h9v9" />
+                </svg>
               </a>
             </li>
             <li style="--i: 3">
-              <a href="verduras.html" aria-current="page" class="enlace-flecha text-fondo/50">
+              <a
+                href="verduras.html"
+                aria-current="page"
+                class="enlace-flecha text-fondo/50"
+              >
                 <span><span class="mr-2 lg:mr-3">004</span>Verduras</span>
               </a>
             </li>
@@ -142,7 +150,7 @@
                   ><span class="mr-2 text-fondo/50 lg:mr-3">005</span
                   ><span id="texto-tema">Modo oscuro</span></span
                 >
-                <!-- Luna (modo claro) / Sol (modo oscuro) -->
+
                 <svg
                   class="icono-tema size-4 dark:hidden lg:size-5"
                   viewBox="0 0 24 24"
@@ -181,7 +189,6 @@
     </header>
 
     <main id="contenido">
-      <!-- ============ VERDURAS DE TEMPORADA ============ -->
       <section
         id="verduras"
         class="px-5 pb-24 pt-14 lg:px-7 lg:pb-40 lg:pt-16"
@@ -208,10 +215,7 @@
         <ul
           class="mt-14 grid gap-y-14 sm:grid-cols-2 sm:gap-x-6 lg:mt-24 lg:grid-cols-3 lg:gap-x-7 lg:gap-y-24"
         >
-          <li
-            class="mx-auto w-full max-w-74 sm:max-w-none"
-            data-aos="fade-up"
-          >
+          <li class="mx-auto w-full max-w-74 sm:max-w-none" data-aos="fade-up">
             <article class="tarjeta group" tabindex="0">
               <div class="tarjeta-foto">
                 <span class="tarjeta-numero">001</span>
@@ -247,7 +251,9 @@
                   class="producto"
                 />
               </div>
-              <h2 class="tarjeta-nombre">Tomate negro del Amazonas Asturiano</h2>
+              <h2 class="tarjeta-nombre">
+                Tomate negro del Amazonas Asturiano
+              </h2>
               <p class="tarjeta-precio">
                 47€<span class="text-gris normal-case">/Kg</span>
               </p>
@@ -280,7 +286,6 @@
       </section>
     </main>
 
-    <!-- ============ FOOTER ============ -->
     <footer id="contacto">
       <div
         class="linea-puntos linea-gruesa text-tinta"
