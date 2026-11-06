@@ -303,6 +303,34 @@
     .tarjeta-precio { margin-top: 0.9rem; font-size: 1.125rem; }
   }
 
+  /* ---------- Página de producto ---------- */
+  .boton-volver svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+  }
+
+  .boton-volver:hover svg,
+  .boton-volver:focus-visible svg {
+    transform: translateX(-4px);
+  }
+
+  /* La foto principal "enfoca" al cargar la página */
+  .foto-producto {
+    animation: enfocar 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* Foto de la novedad enlazada a su página de producto */
+  .enlace-foto img {
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .enlace-foto:hover img,
+  .enlace-foto:focus-visible img {
+    transform: scale(1.03);
+  }
+
   /* ---------- Línea de puntos "en marcha" (animación F) ---------- */
   .linea-puntos {
     --paso: 6px;
@@ -362,6 +390,12 @@
 @keyframes entrar {
   from { opacity: 0; transform: translateX(14px); }
   to   { opacity: 1; transform: none; }
+}
+
+/* Producto · la foto principal aparece y se enfoca */
+@keyframes enfocar {
+  from { opacity: 0; transform: scale(1.04); filter: blur(12px); }
+  to   { opacity: 1; transform: none; filter: none; }
 }
 
 /* F · Los puntos de la línea avanzan */
