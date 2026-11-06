@@ -192,7 +192,7 @@
 
     <main id="contenido">
       <article aria-labelledby="titulo-producto">
-        <!-- Foto principal con botón de volver -->
+        <!-- Foto principal. El botón de volver queda fijo bajo la cabecera, como el del menú -->
         <div class="relative px-5 pt-2 lg:px-7 lg:pt-0">
           <img
             src="img/pimiento-himalaya.webp"
@@ -203,7 +203,7 @@
           />
           <a
             href="index.html"
-            class="boton-volver absolute left-5 top-6 grid size-11 place-items-center bg-tinta text-fondo transition-transform hover:scale-105 focus-visible:scale-105 lg:left-7 lg:top-7 lg:size-[4.625rem]"
+            class="boton-volver fixed left-5 top-[calc(var(--alto-cabecera,8rem)+1.5rem)] z-30 grid size-11 place-items-center bg-tinta text-fondo transition-transform hover:scale-105 focus-visible:scale-105 lg:left-7 lg:top-[calc(var(--alto-cabecera,15rem)+1.75rem)] lg:size-[4.625rem]"
             aria-label="Volver a la página principal"
           >
             <svg class="size-5 lg:size-8" viewBox="0 0 24 24" aria-hidden="true">
