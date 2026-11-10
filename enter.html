@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Frutos Paco · Frutería de barrio en Madrid</title>
+    <meta
+      name="description"
+      content="Frutos Paco, frutería de barrio en Madrid desde 2005."
+    />
+
+    <script>
+      try {
+        const tema = localStorage.getItem("tema");
+        if (
+          tema === "oscuro" ||
+          (!tema && window.matchMedia("(prefers-color-scheme: dark)").matches)
+        ) {
+          document.documentElement.classList.add("dark");
+        }
+      } catch (e) {}
+    </script>
+
+    <!-- Sin JavaScript, la página también lleva a la home a los 2 segundos -->
+    <noscript><meta http-equiv="refresh" content="2; url=index.html" /></noscript>
+    <!-- La home se va descargando mientras dura la animación -->
+    <link rel="prefetch" href="index.html" />
+
+    <link rel="stylesheet" href="css/styles.css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
+    <style type="text/tailwindcss">
+      @custom-variant dark (&:where(.dark, .dark *));
+
+      @theme static {
+        --color-fondo: #f7f7f7;
+        --color-tinta: #161616;
+        --color-gris: #6e6e6e;
+        --color-tarjeta: #ede3e2;
+
+        --font-titulo: "Djore", "Times New Roman", serif;
+        --font-texto: "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+        --shadow-tarjeta: 0 18px 30px -14px rgb(22 22 22 / 0.45);
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-fondo text-tinta font-texto uppercase antialiased transition-colors duration-300"
+  >
+    <a
+      href="index.html"
+      class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-tinta focus:px-4 focus:py-2 focus:text-fondo"
+      >Entrar en la web</a
+    >
+
+    <!-- ============ ANIMACIÓN DE ENTRADA ============ -->
+    <main
+      id="entrada"
+      class="relative grid min-h-svh place-items-center overflow-hidden"
+    >
+      <!-- Anillo de seis fotos (FOTO 1 a 6 del Figma), aparecen una a una -->
+      <div
+        class="anillo relative aspect-[1592/1751] w-[min(94vw,62svh)] lg:w-[min(49.3vw,69svh)]"
+        aria-hidden="true"
+      >
+          <img
+            src="img/pera.webp"
+            alt=""
+            class="foto-anillo absolute h-[27.07%] w-[24%] left-[76%] top-[13.54%]"
+            style="--i: 0"
+          />
+          <img
+            src="img/limonazo.webp"
+            alt=""
+            class="foto-anillo absolute h-[27.07%] w-[24%] left-[76%] top-[53.57%]"
+            style="--i: 1"
+          />
+          <img
+            src="img/granada.webp"
+            alt=""
+            class="foto-anillo absolute h-[27.07%] w-[24%] left-[38%] top-[72.93%]"
+            style="--i: 2"
+          />
+          <img
+            src="img/limones.webp"
+            alt=""
+            class="foto-anillo absolute h-[27.07%] w-[24%] left-[38%] top-0"
+            style="--i: 3"
+          />
+          <img
+            src="img/higos.webp"
+            alt=""
+            class="foto-anillo absolute h-[27.07%] w-[24%] left-0 top-[13.54%]"
+            style="--i: 4"
+          />
+          <img
+            src="img/moras.webp"
+            alt=""
+            class="foto-anillo absolute h-[27.07%] w-[24%] left-0 top-[53.57%]"
+            style="--i: 5"
+          />
+      </div>
+
+      <!-- Logo centrado encima de las fotos: las letras suben (animación A) -->
+      <div
+        class="logo-entrada absolute inset-x-0 top-1/2 -translate-y-1/2 px-5 lg:px-7"
+      >
+        <div class="@container">
+          <h1
+            class="logo font-titulo leading-[0.82] font-normal"
+            aria-label="Frutos Paco"
+          >
+            <span class="palabra" aria-hidden="true"><span class="letra" style="--i: 0">F</span><span class="letra" style="--i: 1">R</span><span class="letra" style="--i: 2">U</span><span class="letra" style="--i: 3">T</span><span class="letra" style="--i: 4">O</span><span class="letra" style="--i: 5">S</span></span>
+            <span class="palabra" aria-hidden="true"><span class="letra" style="--i: 6">P</span><span class="letra" style="--i: 7">A</span><span class="letra" style="--i: 8">C</span><span class="letra" style="--i: 9">O</span></span>
+          </h1>
+        </div>
+      </div>
+    </main>
+
+    <script src="js/entrada.js"></script>
+  </body>
+</html>

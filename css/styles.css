@@ -331,6 +331,21 @@
     transform: scale(1.03);
   }
 
+  /* ---------- Página de entrada (enter.html) ---------- */
+  /* Cada foto del anillo se descubre de abajo arriba, una detrás de otra */
+  .foto-anillo {
+    object-fit: cover;
+    background-color: var(--color-tarjeta);
+    animation: aparecer 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i) * 110ms);
+  }
+
+  /* Al final, fotos y logo se desvanecen antes de ir a la home */
+  .entrada-saliendo .anillo,
+  .entrada-saliendo .logo-entrada {
+    animation: salir 0.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  }
+
   /* ---------- Línea de puntos "en marcha" (animación F) ---------- */
   .linea-puntos {
     --paso: 6px;
@@ -396,6 +411,17 @@
 @keyframes enfocar {
   from { opacity: 0; transform: scale(1.04); filter: blur(12px); }
   to   { opacity: 1; transform: none; filter: none; }
+}
+
+/* Entrada · las fotos del anillo se descubren de abajo arriba */
+@keyframes aparecer {
+  from { clip-path: inset(100% 0 0 0); transform: scale(1.08); }
+  to   { clip-path: inset(0 0 0 0); transform: none; }
+}
+
+/* Entrada · fundido de salida antes de ir a la home */
+@keyframes salir {
+  to { opacity: 0; }
 }
 
 /* F · Los puntos de la línea avanzan */
