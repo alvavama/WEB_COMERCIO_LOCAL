@@ -332,12 +332,17 @@
   }
 
   /* ---------- Página de entrada (enter.html) ---------- */
-  /* Cada foto del anillo se descubre de abajo arriba, una detrás de otra */
+  /* Cada foto del anillo se descubre de abajo arriba y avanza tres posiciones
+     en el sentido de las agujas del reloj, como en la animación del Figma */
   .foto-anillo {
     object-fit: cover;
     background-color: var(--color-tarjeta);
-    animation: aparecer 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
-    animation-delay: calc(var(--i) * 110ms);
+    left: var(--x0);
+    top: var(--y0);
+    /* aparece (escalonado) y a la vez gira por el anillo durante 1,5 s */
+    animation:
+      aparecer 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 60ms) both,
+      girar 1.5s both;
   }
 
   /* Al final, fotos y logo se desvanecen antes de ir a la home */
@@ -417,6 +422,15 @@
 @keyframes aparecer {
   from { clip-path: inset(100% 0 0 0); transform: scale(1.08); }
   to   { clip-path: inset(0 0 0 0); transform: none; }
+}
+
+/* Entrada · cada foto salta a la siguiente posición del anillo (3 saltos de 0,5 s).
+   Las posiciones salen de las variables de cada foto: --x0/--y0 … --x3/--y3 */
+@keyframes girar {
+  0%      { left: var(--x0); top: var(--y0); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
+  33.333% { left: var(--x1); top: var(--y1); animation-timing-function: linear; }
+  66.666% { left: var(--x2); top: var(--y2); animation-timing-function: linear; }
+  100%    { left: var(--x3); top: var(--y3); }
 }
 
 /* Entrada · fundido de salida antes de ir a la home */
