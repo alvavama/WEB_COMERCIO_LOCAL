@@ -1,19 +1,21 @@
 /* =========================================================
-   FRUTOS PACO · Animación de entrada
-   A los 1,6 s las fotos y el logo se desvanecen
-   y a los 2 s la página lleva a la home.
+   FRUTOS PACO · Animación de entrada en la home
+   La capa #entrada se desvanece sola con CSS a los 3 s
+   (@keyframes salir). Aquí solo se quita del documento
+   y se vuelve a permitir el scroll.
    ========================================================= */
 
-const DESTINO = 'index.html';
-const DURACION = 2000;   // milisegundos en la página de entrada
-const SALIDA = 400;      // lo que dura el fundido final
+const capaEntrada = document.querySelector('#entrada');
+const DURACION_ENTRADA = 3000; // milisegundos
 
-// 1. Empieza el fundido de salida
-setTimeout(function () {
-  document.body.classList.add('entrada-saliendo');
-}, DURACION - SALIDA);
-
-// 2. Va a la home. replace() evita que el botón "atrás" vuelva a la animación
-setTimeout(function () {
-  window.location.replace(DESTINO);
-}, DURACION);
+if (capaEntrada) {
+  if (document.documentElement.classList.contains('sin-entrada')) {
+    // Ya se vio en esta sesión (o se pide menos movimiento): fuera directamente
+    capaEntrada.remove();
+  } else {
+    setTimeout(function () {
+      capaEntrada.remove();
+      document.documentElement.classList.remove('entrada-activa');
+    }, DURACION_ENTRADA);
+  }
+}

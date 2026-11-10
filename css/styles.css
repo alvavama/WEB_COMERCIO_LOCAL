@@ -331,7 +331,26 @@
     transform: scale(1.03);
   }
 
-  /* ---------- Página de entrada (enter.html) ---------- */
+  /* ---------- Animación de entrada de la home (3 s) ---------- */
+  /* La capa se desvanece sola al final (también sin JavaScript) */
+  #entrada {
+    animation: salir 0.5s cubic-bezier(0.65, 0, 0.35, 1) 2.5s forwards;
+  }
+
+  .sin-entrada #entrada {
+    display: none;
+  }
+
+  /* Mientras dura, la home no hace scroll y el logo de la cabecera
+     espera para hacer su animación cuando se descubre la página */
+  .entrada-activa {
+    overflow: hidden;
+  }
+
+  .entrada-activa #cabecera .letra {
+    animation-delay: calc(var(--i) * 55ms + 2800ms);
+  }
+
   /* Cada foto del anillo se descubre de abajo arriba y avanza tres posiciones
      en el sentido de las agujas del reloj, como en la animación del Figma */
   .foto-anillo {
@@ -339,16 +358,9 @@
     background-color: var(--color-tarjeta);
     left: var(--x0);
     top: var(--y0);
-    /* aparece (escalonado) y a la vez gira por el anillo durante 1,5 s */
     animation:
-      aparecer 0.45s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 60ms) both,
-      girar 1.5s both;
-  }
-
-  /* Al final, fotos y logo se desvanecen antes de ir a la home */
-  .entrada-saliendo .anillo,
-  .entrada-saliendo .logo-entrada {
-    animation: salir 0.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+      aparecer 0.5s cubic-bezier(0.22, 1, 0.36, 1) calc(var(--i) * 80ms) both,
+      girar 2.25s both;
   }
 
   /* ---------- Línea de puntos "en marcha" (animación F) ---------- */
@@ -424,7 +436,7 @@
   to   { clip-path: inset(0 0 0 0); transform: none; }
 }
 
-/* Entrada · cada foto salta a la siguiente posición del anillo (3 saltos de 0,5 s).
+/* Entrada · cada foto salta a la siguiente posición del anillo (3 saltos de 0,75 s).
    Las posiciones salen de las variables de cada foto: --x0/--y0 … --x3/--y3 */
 @keyframes girar {
   0%      { left: var(--x0); top: var(--y0); animation-timing-function: cubic-bezier(0.3, 0.6, 0.5, 1); }
@@ -433,9 +445,9 @@
   100%    { left: var(--x3); top: var(--y3); }
 }
 
-/* Entrada · fundido de salida antes de ir a la home */
+/* Entrada · la capa se desvanece y deja de poder recibir clics */
 @keyframes salir {
-  to { opacity: 0; }
+  to { opacity: 0; visibility: hidden; }
 }
 
 /* F · Los puntos de la línea avanzan */
