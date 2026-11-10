@@ -12,10 +12,8 @@
     <script>
       try {
         const tema = localStorage.getItem("tema");
-        if (
-          tema === "oscuro" ||
-          (!tema && window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
+        // Modo claro por defecto: solo se pone oscuro si el usuario lo eligió con el botón
+        if (tema === "oscuro") {
           document.documentElement.classList.add("dark");
         }
       } catch (e) {}
@@ -31,7 +29,6 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <!-- 4. Sistema de diseño -->
     <style type="text/tailwindcss">
       @custom-variant dark (&:where(.dark, .dark *));
 
@@ -405,7 +402,7 @@
 
     <!-- 1. Librerías -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <!-- 2. Tu JavaScript, siempre después -->
+    <!-- 2.  JavaScript, siempre después -->
     <script src="js/interfaz.js"></script>
     <script src="js/librerias.js"></script>
   </body>

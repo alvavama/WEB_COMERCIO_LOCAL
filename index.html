@@ -12,13 +12,26 @@
     <script>
       try {
         const tema = localStorage.getItem("tema");
-        if (
-          tema === "oscuro" ||
-          (!tema && window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
+        // Modo claro por defecto: solo se pone oscuro si el usuario lo eligió con el botón
+        if (tema === "oscuro") {
           document.documentElement.classList.add("dark");
         }
       } catch (e) {}
+
+      (function () {
+        const raiz = document.documentElement;
+        const menosMovimiento = window.matchMedia(
+          "(prefers-reduced-motion: reduce)",
+        ).matches;
+        let vista = false;
+        try {
+          vista = sessionStorage.getItem("entrada") === "vista";
+          sessionStorage.setItem("entrada", "vista");
+        } catch (e) {}
+        raiz.classList.add(
+          vista || menosMovimiento ? "sin-entrada" : "entrada-activa",
+        );
+      })();
     </script>
 
     <link
@@ -57,6 +70,136 @@
       class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:bg-tinta focus:px-4 focus:py-2 focus:text-fondo"
       >Saltar al contenido</a
     >
+
+    <div
+      id="entrada"
+      class="fixed inset-0 z-[100] grid place-items-center overflow-hidden bg-fondo"
+      aria-hidden="true"
+    >
+      <div
+        class="anillo relative aspect-[1592/1751] w-[min(94vw,62svh)] lg:w-[min(49.3vw,69svh)]"
+      >
+        <img
+          src="img/pera.webp"
+          alt=""
+          class="foto-anillo absolute h-[27.07%] w-[24%]"
+          style="
+            --i: 0;
+            --x0: 76%;
+            --y0: 13.54%;
+            --x1: 76%;
+            --y1: 53.57%;
+            --x2: 38%;
+            --y2: 72.93%;
+            --x3: 0%;
+            --y3: 53.57%;
+          "
+        />
+        <img
+          src="img/limonazo.webp"
+          alt=""
+          class="foto-anillo absolute h-[27.07%] w-[24%]"
+          style="
+            --i: 1;
+            --x0: 76%;
+            --y0: 53.57%;
+            --x1: 38%;
+            --y1: 72.93%;
+            --x2: 0%;
+            --y2: 53.57%;
+            --x3: 0%;
+            --y3: 13.54%;
+          "
+        />
+        <img
+          src="img/granada.webp"
+          alt=""
+          class="foto-anillo absolute h-[27.07%] w-[24%]"
+          style="
+            --i: 2;
+            --x0: 38%;
+            --y0: 72.93%;
+            --x1: 0%;
+            --y1: 53.57%;
+            --x2: 0%;
+            --y2: 13.54%;
+            --x3: 38%;
+            --y3: 0%;
+          "
+        />
+        <img
+          src="img/limones.webp"
+          alt=""
+          class="foto-anillo absolute h-[27.07%] w-[24%]"
+          style="
+            --i: 3;
+            --x0: 38%;
+            --y0: 0%;
+            --x1: 76%;
+            --y1: 13.54%;
+            --x2: 76%;
+            --y2: 53.57%;
+            --x3: 38%;
+            --y3: 72.93%;
+          "
+        />
+        <img
+          src="img/higos.webp"
+          alt=""
+          class="foto-anillo absolute h-[27.07%] w-[24%]"
+          style="
+            --i: 4;
+            --x0: 0%;
+            --y0: 13.54%;
+            --x1: 38%;
+            --y1: 0%;
+            --x2: 76%;
+            --y2: 13.54%;
+            --x3: 76%;
+            --y3: 53.57%;
+          "
+        />
+        <img
+          src="img/moras.webp"
+          alt=""
+          class="foto-anillo absolute h-[27.07%] w-[24%]"
+          style="
+            --i: 5;
+            --x0: 0%;
+            --y0: 53.57%;
+            --x1: 0%;
+            --y1: 13.54%;
+            --x2: 38%;
+            --y2: 0%;
+            --x3: 76%;
+            --y3: 13.54%;
+          "
+        />
+      </div>
+
+      <div
+        class="logo-entrada absolute inset-x-0 top-1/2 -translate-y-1/2 px-5 lg:px-7"
+      >
+        <div class="@container">
+          <p class="logo font-titulo leading-[0.82] font-normal">
+            <span class="palabra"
+              ><span class="letra" style="--i: 0">F</span
+              ><span class="letra" style="--i: 1">R</span
+              ><span class="letra" style="--i: 2">U</span
+              ><span class="letra" style="--i: 3">T</span
+              ><span class="letra" style="--i: 4">O</span
+              ><span class="letra" style="--i: 5">S</span></span
+            >
+            <span class="palabra"
+              ><span class="letra" style="--i: 6">P</span
+              ><span class="letra" style="--i: 7">A</span
+              ><span class="letra" style="--i: 8">C</span
+              ><span class="letra" style="--i: 9">O</span></span
+            >
+          </p>
+        </div>
+      </div>
+    </div>
 
     <header
       id="cabecera"
@@ -594,7 +737,8 @@
     <!-- 1. Librerías -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11.2.10/swiper-bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <!-- 2. Tu JavaScript, siempre después -->
+    <!-- 2. JavaScript, siempre después -->
+    <script src="js/entrada.js"></script>
     <script src="js/interfaz.js"></script>
     <script src="js/librerias.js"></script>
   </body>

@@ -12,10 +12,8 @@
     <script>
       try {
         const tema = localStorage.getItem("tema");
-        if (
-          tema === "oscuro" ||
-          (!tema && window.matchMedia("(prefers-color-scheme: dark)").matches)
-        ) {
+        // Modo claro por defecto: solo se pone oscuro si el usuario lo eligió con el botón
+        if (tema === "oscuro") {
           document.documentElement.classList.add("dark");
         }
       } catch (e) {}
